@@ -217,21 +217,40 @@
         // AI回复模板
         const aiResponses = {
             greeting: [
-                "您好！我是您的中医体质AI助手<span class='ai-name'>云苓</span>。请描述一下您的身体状况，我会为您进行初步分析。",
-                "很高兴见到您！我是<span class='ai-name'>云苓</span>，您的专业中医体质顾问。请告诉我您目前的情况。"
+                "您好！我是您的<span class='ai-name'>中医体质AI助手云苓</span>。请问您的身高体重是多少？",
+                "很高兴见到您！我是<span class='ai-name'>云苓</span>，您的专业中医体质顾问。方便告诉我您的身高体重吗？"
             ],
-            fatigue: [
-                "关于<strong>疲惫</strong>的问题，请告诉我：\n1. 是否整天都感觉疲惫？\n2. 休息后是否能恢复？\n3. 是否伴有以下症状：\n   - 容易出汗\n   - 注意力难以集中\n   - 食欲改变",
-                "您提到<strong>疲惫</strong>，能否详细描述：\n1. 什么时候开始的？\n2. 是否影响日常工作和生活？\n3. 休息后是否有改善？"
+            askHeight: [
+                "请问您的<span class='keyword'>身高</span>是多少？",
+                "能告诉我您的<span class='keyword'>身高</span>吗？"
             ],
-            sleep: [
-                "关于<strong>睡眠</strong>问题，请问：\n1. 入睡困难还是容易醒？\n2. 是否做梦较多？\n3. 早上起床是否感觉疲惫？",
-                "您提到<strong>睡眠</strong>问题，能否告诉我：\n- 大概几点入睡？\n- 睡眠质量如何？\n- 是否有以下情况：\n  ∙ 容易醒\n  ∙ 多梦\n  ∙ 醒后难以入睡"
+            askWeight: [
+                "请问您的<span class='keyword'>体重</span>是多少？",
+                "能告诉我您的<span class='keyword'>体重</span>吗？"
             ],
-            diet: [
-                "关于<strong>饮食</strong>习惯，请问：\n1. 饭量是否正常？\n2. 是否容易饿？\n3. 有无特别喜好的口味？",
-                "您说到<strong>饮食</strong>情况，能否具体描述：\n- 日常饮食规律吗？\n- 有什么特别的饮食习惯？\n- 消化状况如何？"
+            askSymptoms: [
+                "除了体重问题，您是否还有以下<span class='keyword'>症状</span>：\n1. <span class='keyword'>容易疲劳</span>\n2. <span class='keyword'>手脚冷热</span>\n3. <span class='keyword'>睡眠质量</span>\n4. <span class='keyword'>饮食情况</span>",
+                "了解了，除了体重情况，请问您是否有以下<span class='keyword'>症状</span>：\n1. <span class='keyword'>疲劳乏力</span>\n2. <span class='keyword'>手脚温度</span>\n3. <span class='keyword'>睡眠状况</span>\n4. <span class='keyword'>胃口情况</span>"
             ],
+            constitutionTypes: {
+                yangDeficiency: {
+                    symptoms: "您的症状显示<span class='keyword'>阳虚体质</span>特征：\n- <span class='keyword'>手脚发凉</span>\n- <span class='keyword'>畏寒怕冷</span>\n- <span class='keyword'>精神疲乏</span>\n- <span class='keyword'>胃口欠佳</span>",
+                    advice: "<span class='keyword'>阳虚体质</span>的初步建议：\n1. <span class='keyword'>注意保暖</span>\n2. <span class='keyword'>规律作息</span>\n3. <span class='keyword'>适量运动</span>，以温和运动为主\n4. <span class='keyword'>饮食宜温补</span>"
+                },
+                dampness: {
+                    symptoms: "您的症状显示<span class='keyword'>痰湿体质</span>特征：\n- <span class='keyword'>容易疲劳</span>\n- <span class='keyword'>体型偏胖</span>\n- <span class='keyword'>面部油腻</span>\n- <span class='keyword'>胃口较好但易积食</span>",
+                    advice: "<span class='keyword'>痰湿体质</span>的初步建议：\n1. <span class='keyword'>饮食清淡</span>\n2. <span class='keyword'>避免生冷</span>\n3. <span class='keyword'>加强有氧运动</span>\n4. <span class='keyword'>规律作息</span>"
+                },
+                phlegmStasis: {
+                    symptoms: "您的症状显示痰瘀体质特征：\n- 体型肥胖\n- 易疲劳\n- 口粘腻\n- 容易积食",
+                    advice: "痰瘀体质的初步建议：\n1. 控制饮食\n2. 加强运动\n3. 改善作息\n4. 情志调节"
+                }
+            },
+            weightAnalysis: {
+                slight: "根据您的身高{height}cm，体重{weight}kg，BMI指数为{bmi}，属于轻度超重。",
+                moderate: "根据您的身高{height}cm，体重{weight}kg，BMI指数为{bmi}，属于中度肥胖。",
+                severe: "根据您的身高{height}cm，体重{weight}kg，BMI指数为{bmi}，属于重度肥胖。"
+            },
             paywall: [
                 "看来您需要更专业的个性化建议。要获取完整的体质分析和定制方案，需要开通付费服务。\n\n我们将为您提供：\n✓ 专业的体质分析报告\n✓ 个性化调理方案\n✓ 一对一营养指导\n✓ 7×24小时咨询服务",
                 "您的情况需要更深入的分析。建议开通付费服务，我们将为您提供：\n\n✓ 详细的体质评估\n✓ 个性化养生方案\n✓ 专业营养指导\n✓ 持续跟踪服务"
@@ -254,9 +273,29 @@
         // 添加上下文追踪
         let conversationContext = {
             lastTopic: null,
-            details: {},
-            analysisProvided: false
+            details: {
+                weight: null,
+                height: null,
+                constitution: null,
+                symptoms: [],
+                dietHabits: [],
+                analysisProvided: false
+            }
         };
+
+        // 计算BMI
+        function calculateBMI(weight, height) {
+            const heightInMeters = height / 100;
+            return (weight / (heightInMeters * heightInMeters)).toFixed(1);
+        }
+
+        // 获取体重状态
+        function getWeightStatus(bmi) {
+            if (bmi < 24) return null;
+            if (bmi < 28) return 'slight';
+            if (bmi < 32) return 'moderate';
+            return 'severe';
+        }
 
         // 随机获取回复
         function getRandomResponse(category) {
@@ -266,12 +305,27 @@
 
         // 判断是否需要付费回复
         function needsPremiumResponse(text) {
+            // 直接触发付费提醒的关键短语
+            const immediatePaywallPhrases = [
+                '具体的调理方案',
+                '具体调理方案',
+                '详细的调理方案',
+                '详细调理方案'
+            ];
+
+            // 如果包含直接触发付费的短语，立即返回true
+            if (immediatePaywallPhrases.some(phrase => text.includes(phrase))) {
+                return true;
+            }
+
+            // 其他需要付费的关键词
             const premiumKeywords = [
                 '方案', '建议', '治疗', '怎么办', '开方', '药', '调理',
                 '详细', '具体', '怎么做', '如何', '需要什么', '推荐'
             ];
+            
             // 只有在已经提供了初步分析后，才会触发付费
-            return conversationContext.analysisProvided && 
+            return conversationContext.details.analysisProvided && 
                    premiumKeywords.some(keyword => text.includes(keyword));
         }
 
@@ -337,81 +391,82 @@
             messageCount++;
             let response;
 
-            // 检查是否需要付费回复
-            if (messageCount > 5 && !isPaidUser && needsPremiumResponse(userMessage)) {
+            // 首先检查是否需要付费回复
+            if (needsPremiumResponse(userMessage)) {
                 response = getRandomResponse('paywall');
                 addMessageToChat(response, 'ai');
                 addPaymentButton();
                 return;
             }
 
-            // 根据上下文和用户输入进行智能回复
-            if (conversationContext.lastTopic === 'fatigue' && !conversationContext.analysisProvided) {
-                // 分析疲惫具体情况
-                if (userMessage.includes('早上') || userMessage.includes('早晨')) {
-                    response = aiResponses.fatigueAnalysis.morning;
-                } else if (userMessage.includes('下午')) {
-                    response = aiResponses.fatigueAnalysis.afternoon;
-                } else if (userMessage.includes('晚上')) {
-                    response = aiResponses.fatigueAnalysis.night;
+            // 提取身高体重数字
+            const numbers = userMessage.match(/\d+/g);
+            
+            // 处理身高体重输入
+            if (numbers && !conversationContext.details.height) {
+                if (numbers[0] > 140 && numbers[0] < 200) {
+                    conversationContext.details.height = numbers[0];
+                    response = getRandomResponse('askWeight');
+                    addMessageToChat(response, 'ai');
+                    return;
                 }
-                conversationContext.analysisProvided = true;
-            } else if (conversationContext.lastTopic === 'sleep' && !conversationContext.analysisProvided) {
-                // 分析睡眠问题
-                if (userMessage.includes('失眠')) {
-                    response = aiResponses.sleepAnalysis.insomnia;
-                } else if (userMessage.includes('浅') || userMessage.includes('容易醒')) {
-                    response = aiResponses.sleepAnalysis.lightSleep;
-                }
-                conversationContext.analysisProvided = true;
-            } else if (userMessage.includes("饮食") || userMessage.includes("吃") || 
-                       userMessage.includes("没胃口") || userMessage.includes("吃不下") || 
-                       userMessage.includes("食欲不振")) {
-                // 直接检查是否包含具体症状关键词
-                if (userMessage.includes('没胃口') || userMessage.includes('吃不下') || 
-                    userMessage.includes('食欲不振')) {
-                    response = aiResponses.dietAnalysis.poorAppetite;
-                    conversationContext.lastTopic = 'diet';
-                    conversationContext.analysisProvided = true;
-                } else if (userMessage.includes('容易饿') || userMessage.includes('总是饿')) {
-                    response = aiResponses.dietAnalysis.overeating;
-                    conversationContext.lastTopic = 'diet';
-                    conversationContext.analysisProvided = true;
-                } else {
-                    response = getRandomResponse('diet');
-                    conversationContext.lastTopic = 'diet';
-                    conversationContext.analysisProvided = false;
-                }
-            } else {
-                // 初始对话判断
-                if (userMessage.includes("你好") || userMessage.includes("您好")) {
-                    response = getRandomResponse('greeting');
-                    conversationContext.lastTopic = 'greeting';
-                } else if (userMessage.includes("疲惫") || userMessage.includes("累")) {
-                    response = getRandomResponse('fatigue');
-                    conversationContext.lastTopic = 'fatigue';
-                    conversationContext.analysisProvided = false;
-                } else if (userMessage.includes("睡眠") || userMessage.includes("失眠")) {
-                    response = getRandomResponse('sleep');
-                    conversationContext.lastTopic = 'sleep';
-                    conversationContext.analysisProvided = false;
-                } else if (userMessage.includes("饮食") || userMessage.includes("吃")) {
-                    response = getRandomResponse('diet');
-                    conversationContext.lastTopic = 'diet';
-                    conversationContext.analysisProvided = false;
-                } else if (userMessage.includes("方案") || userMessage.includes("建议")) {
-                    if (!conversationContext.analysisProvided) {
-                        response = "请先告诉我您的具体情况，这样我才能为您提供更准确的建议。";
-                    } else {
-                        // 如果已经提供了初步分析，这里触发付费提醒
-                        response = getRandomResponse('paywall');
+            }
+            
+            if (numbers && !conversationContext.details.weight && conversationContext.details.height) {
+                if (numbers[0] > 30 && numbers[0] < 200) {
+                    conversationContext.details.weight = numbers[0];
+                    const bmi = calculateBMI(conversationContext.details.weight, conversationContext.details.height);
+                    const status = getWeightStatus(bmi);
+                    
+                    if (status) {
+                        response = aiResponses.weightAnalysis[status]
+                            .replace('{height}', conversationContext.details.height)
+                            .replace('{weight}', conversationContext.details.weight)
+                            .replace('{bmi}', bmi);
                         addMessageToChat(response, 'ai');
-                        addPaymentButton();
+                        
+                        // 继续询问症状
+                        setTimeout(() => {
+                            response = getRandomResponse('askSymptoms');
+                            addMessageToChat(response, 'ai');
+                        }, 1000);
                         return;
                     }
-                } else {
-                    response = "请详细描述您的具体情况：\n- 主要不适症状\n- 持续时间\n- 是否影响日常生活\n- 是否已经就医";
                 }
+            }
+
+            // 处理症状描述
+            if (conversationContext.details.weight && conversationContext.details.height) {
+                const symptoms = userMessage;
+                conversationContext.details.symptoms.push(symptoms);
+                
+                // 根据症状判断体质类型
+                if (symptoms.includes('冷') || symptoms.includes('寒')) {
+                    response = aiResponses.constitutionTypes.yangDeficiency.symptoms + '\n\n' + 
+                              aiResponses.constitutionTypes.yangDeficiency.advice;
+                    conversationContext.details.constitution = 'yangDeficiency';
+                } else if (symptoms.includes('疲') || symptoms.includes('累')) {
+                    response = aiResponses.constitutionTypes.dampness.symptoms + '\n\n' + 
+                              aiResponses.constitutionTypes.dampness.advice;
+                    conversationContext.details.constitution = 'dampness';
+                } else if (symptoms.includes('胖') || symptoms.includes('重')) {
+                    response = aiResponses.constitutionTypes.phlegmStasis.symptoms + '\n\n' + 
+                              aiResponses.constitutionTypes.phlegmStasis.advice;
+                    conversationContext.details.constitution = 'phlegmStasis';
+                }
+                
+                if (response) {
+                    conversationContext.details.analysisProvided = true;
+                    addMessageToChat(response, 'ai');
+                    return;
+                }
+            }
+
+            // 初始对话
+            if (userMessage.includes("你好") || userMessage.includes("您好")) {
+                response = getRandomResponse('greeting');
+            } else {
+                response = "请告诉我您的具体情况，比如身高、体重、以及是否有以下症状：\n- 疲劳乏力\n- 手脚冷热\n- 睡眠质量\n- 饮食情况";
             }
 
             addMessageToChat(response, 'ai');
