@@ -364,6 +364,24 @@
                     response = aiResponses.sleepAnalysis.lightSleep;
                 }
                 conversationContext.analysisProvided = true;
+            } else if (userMessage.includes("饮食") || userMessage.includes("吃") || 
+                       userMessage.includes("没胃口") || userMessage.includes("吃不下") || 
+                       userMessage.includes("食欲不振")) {
+                // 直接检查是否包含具体症状关键词
+                if (userMessage.includes('没胃口') || userMessage.includes('吃不下') || 
+                    userMessage.includes('食欲不振')) {
+                    response = aiResponses.dietAnalysis.poorAppetite;
+                    conversationContext.lastTopic = 'diet';
+                    conversationContext.analysisProvided = true;
+                } else if (userMessage.includes('容易饿') || userMessage.includes('总是饿')) {
+                    response = aiResponses.dietAnalysis.overeating;
+                    conversationContext.lastTopic = 'diet';
+                    conversationContext.analysisProvided = true;
+                } else {
+                    response = getRandomResponse('diet');
+                    conversationContext.lastTopic = 'diet';
+                    conversationContext.analysisProvided = false;
+                }
             } else {
                 // 初始对话判断
                 if (userMessage.includes("你好") || userMessage.includes("您好")) {
