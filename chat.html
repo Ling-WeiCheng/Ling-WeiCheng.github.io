@@ -217,8 +217,8 @@
         // AI回复模板
         const aiResponses = {
             greeting: [
-                "您好！我是您的<span class='ai-name'>中医体质AI助手云苓</span>。请问您的身高体重是多少？",
-                "很高兴见到您！我是<span class='ai-name'>云苓</span>，您的专业中医体质顾问。方便告诉我您的身高体重吗？"
+                "您好！我是您的<span class='ai-name'>中医体质AI助手云苓</span>。方便告诉我您的身高体重吗?",
+                "很高兴见到您！我是<span class='ai-name'>云苓</span>，您的专业中医体质顾问。方便告诉我您的身高体重吗?"
             ],
             askHeight: [
                 "请问您的<span class='keyword'>身高</span>是多少？",
@@ -262,12 +262,36 @@
             },
             sleepAnalysis: {
                 insomnia: "失眠问题分析：\n1. 心神不宁\n2. 阴虚火旺\n3. 脾胃不和\n\n初步建议：\n- 睡前泡脚\n- 按摩太阳穴\n- 避免刺激性食物",
-                lightSleep: "浅睡分析：\n1. 心脾两虚\n2. 肝气郁结\n3. 外界干扰\n\n初步建议：\n- 调节作息\n- 放松心情\n- 改善睡眠环境"
+                lightSleep: "浅睡分析：\n1. 心脾两虚\n2. 肝气郁结\n3. 外界干扰\n\n初步建议：\n- 调节作息\n- 放松心情\n- 改善睡眠环境",
+                earlyWake: "早醒问题分析：\n1. 肝阴不足\n2. 心火旺盛\n3. 肾气亏虚\n\n初步建议：\n- 养阴安神\n- 保持规律作息\n- 适度运动",
+                snoring: "打鼾问题分析：\n1. 痰湿内盛\n2. 气道阻塞\n3. 脾胃功能失调\n\n初步建议：\n- 控制体重\n- 调理脾胃\n- 避免过度疲劳"
             },
             dietAnalysis: {
-                poorAppetite: "食欲不振分析：\n1. 脾胃虚弱\n2. 情志影响\n3. 消化功能减退\n\n初步建议：\n- 少食多餐\n- 清淡易消化\n- 规律进餐",
-                overeating: "易饥饿分析：\n1. 胃火旺盛\n2. 脾胃功能亢进\n3. 情绪性进食\n\n初步建议：\n- 控制进食速度\n- 选择粗粮\n- 补充优质蛋白"
-            }
+                poorAppetite: {
+                    symptoms: "您的症状显示<span class='keyword'>食欲不振</span>：\n- <span class='keyword'>胃口差</span>\n- <span class='keyword'>吃不下饭</span>\n- <span class='keyword'>容易饱胀</span>",
+                    advice: "初步建议：\n1. <span class='keyword'>少食多餐</span>，每餐7分饱\n2. <span class='keyword'>选择易消化</span>的食物\n3. <span class='keyword'>规律进餐</span>，避免暴饮暴食\n4. 可以适当运动增进食欲"
+                },
+                overeating: {
+                    symptoms: "您的症状显示<span class='keyword'>易饥饿</span>特征：\n- <span class='keyword'>经常感觉饿</span>\n- <span class='keyword'>食量较大</span>\n- <span class='keyword'>进食频繁</span>",
+                    advice: "初步建议：\n1. <span class='keyword'>控制进食速度</span>，细嚼慢咽\n2. 选择<span class='keyword'>全谷物、粗粮</span>增加饱腹感\n3. 补充<span class='keyword'>优质蛋白</span>\n4. 避免高糖高脂食物"
+                },
+                irregular: {
+                    symptoms: "您的症状显示<span class='keyword'>饮食不规律</span>：\n- <span class='keyword'>三餐时间不固定</span>\n- <span class='keyword'>经常不吃早餐</span>\n- <span class='keyword'>夜宵习惯</span>",
+                    advice: "初步建议：\n1. 保持<span class='keyword'>规律作息</span>\n2. 养成<span class='keyword'>定时进餐</span>习惯\n3. 早餐要<span class='keyword'>营养均衡</span>\n4. 晚餐不要太晚，避免夜宵"
+                },
+                digestive: {
+                    symptoms: "您的症状显示<span class='keyword'>消化不良</span>：\n- <span class='keyword'>胃部不适</span>\n- <span class='keyword'>消化不良</span>\n- <span class='keyword'>腹胀</span>",
+                    advice: "初步建议：\n1. <span class='keyword'>细嚼慢咽</span>，保持心情愉悦\n2. 选择<span class='keyword'>温热食物</span>\n3. <span class='keyword'>避免生冷</span>刺激\n4. 饭后适当活动"
+                }
+            },
+            askSleepQuality: [
+                "您的<span class='keyword'>睡眠质量</span>如何？是否存在以下情况：\n1. <span class='keyword'>入睡困难</span>\n2. <span class='keyword'>易醒多梦</span>\n3. <span class='keyword'>睡眠时长</span>\n4. <span class='keyword'>醒后疲劳</span>",
+                "能详细描述一下您的<span class='keyword'>睡眠情况</span>吗？比如：\n1. <span class='keyword'>几点入睡</span>\n2. <span class='keyword'>睡眠质量</span>\n3. <span class='keyword'>是否打鼾</span>\n4. <span class='keyword'>早醒情况</span>"
+            ],
+            askDiet: [
+                "您平时的饮食情况是怎样的？请告诉我：\n1. <span class='keyword'>三餐是否规律</span>\n2. <span class='keyword'>食量大小如何</span>\n3. <span class='keyword'>有什么饮食困扰</span>",
+                "能描述一下您的饮食习惯吗？比如：\n- <span class='keyword'>饭量大小</span>\n- <span class='keyword'>饮食规律性</span>\n- <span class='keyword'>饮食偏好</span>\n- <span class='keyword'>是否有消化问题</span>"
+            ]
         };
 
         // 添加上下文追踪
@@ -279,7 +303,8 @@
                 constitution: null,
                 symptoms: [],
                 dietHabits: [],
-                analysisProvided: false
+                analysisProvided: false,
+                sleepAsked: false
             }
         };
 
@@ -460,6 +485,78 @@
                     addMessageToChat(response, 'ai');
                     return;
                 }
+            }
+
+            // 处理睡眠相关问题
+            if (userMessage.includes('睡眠') || userMessage.includes('失眠') || 
+                userMessage.includes('早醒') || userMessage.includes('打鼾')) {
+                
+                if (!conversationContext.details.sleepAsked) {
+                    response = getRandomResponse('askSleepQuality');
+                    conversationContext.details.sleepAsked = true;
+                } else {
+                    // 根据用户描述判断具体睡眠问题
+                    if (userMessage.includes('失眠') || userMessage.includes('睡不着')) {
+                        response = aiResponses.sleepAnalysis.insomnia;
+                    } else if (userMessage.includes('早醒')) {
+                        response = aiResponses.sleepAnalysis.earlyWake;
+                    } else if (userMessage.includes('打鼾')) {
+                        response = aiResponses.sleepAnalysis.snoring;
+                    } else if (userMessage.includes('浅睡') || userMessage.includes('多梦')) {
+                        response = aiResponses.sleepAnalysis.lightSleep;
+                    }
+                    
+                    conversationContext.details.analysisProvided = true;
+                }
+                
+                addMessageToChat(response, 'ai');
+                return;
+            }
+
+            // 处理饮食相关问题
+            if (userMessage.includes('饮食') || userMessage.includes('吃饭') || 
+                userMessage.includes('食欲') || userMessage.includes('消化') ||
+                userMessage.includes('饿') || userMessage.includes('胃')) {
+                
+                if (!conversationContext.details.dietAsked) {
+                    response = getRandomResponse('askDiet');
+                    conversationContext.details.dietAsked = true;
+                } else {
+                    let dietResponse = '';
+                    
+                    // 扩展关键词匹配
+                    if (userMessage.includes('没胃口') || userMessage.includes('吃不下') || 
+                        userMessage.includes('没食欲') || userMessage.includes('饱胀')) {
+                        dietResponse = aiResponses.dietAnalysis.poorAppetite.symptoms + '\n\n' + 
+                                     aiResponses.dietAnalysis.poorAppetite.advice;
+                    } 
+                    else if (userMessage.includes('容易饿') || userMessage.includes('吃得多') || 
+                             userMessage.includes('总是饿') || userMessage.includes('食量大')) {
+                        dietResponse = aiResponses.dietAnalysis.overeating.symptoms + '\n\n' + 
+                                     aiResponses.dietAnalysis.overeating.advice;
+                    }
+                    else if (userMessage.includes('不规律') || userMessage.includes('不定时') || 
+                             userMessage.includes('不吃早饭') || userMessage.includes('夜宵')) {
+                        dietResponse = aiResponses.dietAnalysis.irregular.symptoms + '\n\n' + 
+                                     aiResponses.dietAnalysis.irregular.advice;
+                    }
+                    else if (userMessage.includes('消化不良') || userMessage.includes('胃不舒服') || 
+                             userMessage.includes('胀') || userMessage.includes('反酸')) {
+                        dietResponse = aiResponses.dietAnalysis.digestive.symptoms + '\n\n' + 
+                                     aiResponses.dietAnalysis.digestive.advice;
+                    }
+                    
+                    if (dietResponse) {
+                        response = dietResponse;
+                        conversationContext.details.analysisProvided = true;
+                    } else {
+                        // 如果没有匹配到具体问题，给出通用回复
+                        response = "能具体描述一下您的饮食问题吗？比如：\n- 食欲如何\n- 消化状况\n- 饮食规律性\n- 有什么不适";
+                    }
+                }
+                
+                addMessageToChat(response, 'ai');
+                return;
             }
 
             // 初始对话
